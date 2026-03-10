@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Graduate Underemployment in Sri Lanka – Survey</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f0f4f8;
+      color: #2d3748;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .survey-wrapper {
+      max-width: 780px;
+      margin: 40px auto 60px;
+      padding: 0 16px;
+    }
+
+    /* Header */
+    .survey-header {
+      background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%);
+      color: #fff;
+      border-radius: 12px 12px 0 0;
+      padding: 36px 40px 28px;
+    }
+    .survey-header h1 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .survey-header p {
+      font-size: 0.88rem;
+      opacity: 0.85;
+    }
+
+    /* Progress bar */
+    .progress-bar-wrap {
+      background: #e2e8f0;
+      height: 6px;
+    }
+    .progress-bar {
+      height: 6px;
+      width: 0%;
+      background: #48bb78;
+      transition: width 0.4s ease;
+    }
+
+    /* Card */
+    .card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-top: none;
+      padding: 32px 40px;
+    }
+    .card:last-of-type {
+      border-radius: 0 0 12px 12px;
+    }
+
+    /* Section header */
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #2b6cb0;
+      margin-bottom: 4px;
+    }
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #1a365d;
+      margin-bottom: 6px;
+    }
+    .section-divider {
+      border: none;
+      border-top: 2px solid #ebf4ff;
+      margin: 4px 0 22px;
+    }
+
+    /* Intro box */
+    .intro-box {
+      background: #ebf8ff;
+      border-left: 4px solid #2b6cb0;
+      border-radius: 6px;
+      padding: 16px 20px;
+      margin-bottom: 22px;
+      font-size: 0.92rem;
+      color: #2c5282;
+    }
+
+    /* Instruction text */
+    .instruction {
+      background: #f7fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 10px 16px;
+      font-size: 0.88rem;
+      color: #4a5568;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    /* Question block */
+    .question-block {
+      margin-bottom: 26px;
+    }
+    .question-block:last-child { margin-bottom: 0; }
+
+    .question-text {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #2d3748;
+    }
+    .question-number {
+      display: inline-block;
+      background: #2b6cb0;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      text-align: center;
+      line-height: 22px;
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+
+    /* Radio / Checkbox options */
+    .options-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .options-list.inline {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .options-list li label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f7fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 16px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      font-size: 0.92rem;
+    }
+    .options-list li label:hover {
+      border-color: #2b6cb0;
+      background: #ebf4ff;
+    }
+    .options-list li input[type="radio"],
+    .options-list li input[type="checkbox"] {
+      accent-color: #2b6cb0;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+    .options-list li input[type="radio"]:checked + span,
+    .options-list li input[type="checkbox"]:checked + span {
+      color: #2b6cb0;
+      font-weight: 600;
+    }
+
+    /* Likert table */
+    .likert-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 4px;
+    }
+    .likert-table thead th {
+      background: #2b6cb0;
+      color: #fff;
+      padding: 10px 8px;
+      text-align: center;
+      font-weight: 600;
+    }
+    .likert-table thead th:first-child {
+      text-align: left;
+      border-radius: 6px 0 0 0;
+      min-width: 240px;
+    }
+    .likert-table thead th:last-child { border-radius: 0 6px 0 0; }
+    .likert-table tbody tr:nth-child(even) { background: #f7fafc; }
+    .likert-table tbody tr:hover { background: #ebf4ff; }
+    .likert-table tbody td {
+      padding: 10px 8px;
+      vertical-align: middle;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .likert-table tbody td:first-child {
+      font-weight: 500;
+      color: #2d3748;
+      padding-left: 12px;
+    }
+    .likert-table tbody td:not(:first-child) {
+      text-align: center;
+    }
+    .likert-table input[type="radio"] {
+      accent-color: #2b6cb0;
+      width: 17px;
+      height: 17px;
+      cursor: pointer;
+    }
+
+    /* Text input */
+    .text-input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      color: #2d3748;
+      background: #f7fafc;
+      resize: vertical;
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+    .text-input:focus {
+      outline: none;
+      border-color: #2b6cb0;
+      background: #fff;
+    }
+
+    /* Note box */
+    .note-box {
+      background: #fffaf0;
+      border-left: 4px solid #d69e2e;
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      color: #744210;
+      margin-top: 18px;
+    }
+
+    /* Submit button */
+    .submit-wrap {
+      text-align: center;
+      margin-top: 32px;
+    }
+    .btn-submit {
+      background: linear-gradient(135deg, #2b6cb0 0%, #2c5282 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 48px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .btn-submit:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-submit:active { transform: translateY(0); }
+
+    /* Consent special */
+    .consent-box {
+      background: #f0fff4;
+      border: 1.5px solid #68d391;
+      border-radius: 8px;
+      padding: 18px 22px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .consent-box input[type="checkbox"] {
+      accent-color: #2b6cb0;
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .consent-box label {
+      font-size: 0.93rem;
+      font-weight: 500;
+      color: #276749;
+      cursor: pointer;
+    }
+
+    /* Footer */
+    .survey-footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #a0aec0;
+      margin-top: 20px;
+    }
+
+    /* Screening note */
+    .screen-note {
+      background: #fff5f5;
+      border-left: 4px solid #fc8181;
+      border-radius: 6px;
+      padding: 10px 16px;
+      font-size: 0.82rem;
+      color: #c53030;
+      margin-top: 14px;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .card, .survey-header { padding: 22px 18px; }
+      .likert-table { font-size: 0.78rem; }
+      .likert-table thead th, .likert-table tbody td { padding: 8px 4px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="survey-wrapper">
+
+  <!-- ── Header ── -->
+  <div class="survey-header">
+    <h1>Graduate Underemployment in Sri Lanka</h1>
+    <p>Academic Research Survey &nbsp;|&nbsp; Estimated time: 8–10 minutes &nbsp;|&nbsp; Anonymous &amp; Confidential</p>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
+
+  <form id="surveyForm" novalidate>
+
+    <!-- ══════════════════════════════════════════
+         SECTION 0 – INTRODUCTION & CONSENT
+    ══════════════════════════════════════════ -->
+    <div class="card">
+      <div class="section-label">Section 0</div>
+      <div class="section-title">Introduction &amp; Consent</div>
+      <hr class="section-divider">
+
+      <div class="intro-box">
+        This questionnaire is part of an academic research study on <strong>graduate underemployment in Sri Lanka</strong>.
+        The purpose is to understand how underemployment relates to work experiences, engagement, and intentions to seek
+        opportunities abroad. Your responses are <strong>anonymous and confidential</strong>.
+        The survey will take approximately <strong>8–10 minutes</strong> to complete.
+      </div>
+
+      <div class="question-block">
+        <p class="question-text">Consent</p>
+        <div class="consent-box">
+          <input type="checkbox" id="consent" name="consent" required>
+          <label for="consent">
+            I have read the above information and <strong>voluntarily agree to participate</strong> in this study.
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         SECTION 1 – SCREENING
+    ══════════════════════════════════════════ -->
+    <div class="card">
+      <div class="section-label">Section 1</div>
+      <div class="section-title">Screening Questions</div>
+      <hr class="section-divider">
+
+      <!-- Q1 -->
+      <div class="question-block">
+        <p class="question-text"><span class="question-number">1</span>Are you currently employed?</p>
+        <ul class="options-list inline">
+          <li><label><input type="radio" name="employed" value="yes" required><span>Yes</span></label></li>
+          <li><label><input type="radio" name="employed" value="no"><span>No</span></label></li>
+        </ul>
+      </div>
+
+      <!-- Q2 -->
+      <div class="question-block">
+        <p class="question-text"><span class="question-number">2</span>Have you completed a diploma or degree from a recognized higher education institution?</p>
+        <ul class="options-list inline">
+          <li><label><input type="radio" name="qualified" value="yes" required><span>Yes</span></label></li>
+          <li><label><input type="radio" name="qualified" value="no"><span>No</span></label></li>
+        </ul>
+      </div>
+
+      <!-- Q3 -->
+      <div class="question-block">
+        <p class="question-text"><span class="question-number">3</span>In which year did you complete your highest qualification?</p>
+        <ul class="options-list">
+          <li><label><input type="radio" name="grad_year" value="2025_later" required><span>2025 or later</span></label></li>
+          <li><label><input type="radio" name="grad_year" value="2023_2024"><span>2023–2024</span></label></li>
+          <li><label><input type="radio" name="grad_year" value="2020_2022"><span>2020–2022</span></label></li>
+          <li><label><input type="radio" name="grad_year" value="2017_2019"><span>2017–2019</span></label></li>
+          <li><label><input type="radio" name="grad_year" value="before_2017"><span>Before 2017</span></label></li>
+        </ul>
+      </div>
+
+      <div class="screen-note">
+        &#9888; Only respondents who answer <strong>Yes</strong> to both employment status and qualification will proceed to the main survey.
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         SECTION 2 – DEMOGRAPHICS
+    ══════════════════════════════════════════ -->
+    <div class="card">
+      <div class="section-label">Section 2</div>
+      <div class="section-title">Demographic &amp; Background Information</div>
+      <hr class="section-divider">
+
+      <!-- Age -->
+      <div class="question-block">
+        <p class="question-text"><span class="question-number">4</span>Age</p>
+        <ul class="options-list">
+          <li><label><input type="radio" name="age" value="20_24" required><span>20–24</span></label></li>
+          <li><label><input type="radio" name="age" value="25_29"><span>25–29</span></label></li>
+          <li><label><input type="radio" name="age" value="30_34"><span>30–34</span></label></li>
+          <li><label><input type="radio" name="age" value="35_39"><span>35–39</span></label></li>
+          <li><label><input type="radio" name="age" value="40_above"><span>40 and above</span></label></li>
+        </ul>
+      </div>
+
+      <!-- Gender -->
+      <div class="question-block">
+        <p class="question-text"><span class="question-number">5</span>Gender</p>
+        <ul class="options-list">
+          <li><label><input type="radio" name="gender" value="male" required><span>Male</span></label></li>
+          <li><label><input type="radio" name="gender" value="female"><span>Female</span></label></li>
+          <li><label><input type="radio" name="gender" value="prefer_not"><span>Prefer not to say</span></label></li>
+          <li><label><input type="radio" name="gender" value="other"><span>Other</span></label></li>
+        </ul>
+      </div>
+
+      <!-- Province -->
+      <div class="question-block">
+        <p class="question-text"><span class="question-number">6</span>Province of residence</p>
+        <ul class="options-list">
+          <li><label><input type="radio" name="province" value="western" required><span>Western</span></label></li>
+          <li><label><input type="radio" name="province" value="central"><span>Central</span></label></li>
+          <li><label><input type="radio" name="province" value="southern"><span>Southern</span></label></li>
+          <li><label><input type="radio" name="province" value="northern"><span>Northern</span></label></li>
+          <li><label><input type="radio" name="province" value="eastern"><span>Eastern</span></label></li>
+          <li><label><input type="radio" name="province" value="north_western"><span>North Western</span></label></li>
+          <li><label><input type="radio" name="province" value="north_central"><span>North Central</span></label></li>
+          <li><label><input type="radio" name="province" value="uva"><span>Uva</span></label></li>
+          <li><label><input type="radio" name="province" value="sabaragamuwa"><span>Sabaragamuwa</span></label></li>
+        </ul>
+      </div>
+
+      <!-- Highest qualification -->
+      <div class="question-block">
+        <p class="question-text"><span class="question-number">7</span>Highest qualification</p>
+        <ul class="options-list">
+          <li><label><input type="radio" name="qualification" value="diploma" required><span>Diploma</span></label></li>
+          <li><label><input type="radio" name="qualification" value="bachelors"><span>Bachelor's degree</span></label></li>
+          <li><label><input type="radio" name="qualification" value="pg_diploma"><span>Postgraduate diploma</span></label></li>
+          <li><label><input type="radio" name="qualification" value="masters"><span>Master's degree</span></label></li>
+          <li><label><input type="radio" name="qualification" value="other"><span>Other</span></label></li>
+        </ul>
+      </div>
+
+      <!-- Field of study -->
+      <div class="question-block">
+        <p class="question-text"><span class="question-number">8</span>Field of study</p>
+        <ul class="options-list">
+          <li><label><input type="radio" name="field" value="management" required><span>Management / Commerce</span></label></li>
+          <li><label><input type="radio" name="field" value="it"><span>IT / Computing</span></label></li>
+          <li><label><input type="radio" name="field" value="engineering"><span>Engineering / Technology</span></label></li>
+          <li><label><input type="radio" name="field" value="arts"><span>Arts / Humanities</span></label></li>
+          <li><label><input type="radio" name="field" value="social_sciences"><span>Social Sciences</span></label></li>
+          <li><label><input type="radio" name="field" value="science"><span>Science</span></label></li>
+          <li><label><input type="radio" name="field" value="education"><span>Education</span></label></li>
+          <li><label><input type="radio" name="field" value="health"><span>Health-related</span></label></li>
+          <li><label><input type="radio" name="field" value="other"><span>Other</span></label></li>
+        </ul>
+      </div>
+
+      <!-- Type of institution -->
+      <div class="question-block">
+        <p class="question-text"><span class="question-number">9</span>Type of institution attended</p>
+        <ul class="options-list">
+          <li><label><input type="radio" name="institution" value="state_uni" required><span>State university</span></label></li>
+          <li><label><input type="radio" name="institution" value="private_uni"><span>Private university / institute</span></label></li>
+          <li><label><input type="radio" name="institution" value="professional"><span>Professional institute</span></label></li>
+          <li><label><input type="radio" name="institution" value="other"><span>Other</span></label></li>
+        </ul>
+      </div>
+
+      <!-- English proficiency -->
+      <div class="question-block">
+        <p class="question-text"><span class="question-number">10</span>English proficiency</p>
+        <ul class="options-list">
+          <li><label><input type="radio" name="english" value="low" required><span>Low</span></label></li>
+          <li><label><input type="radio" name="english" value="moderate"><span>Moderate</span></label></li>
+          <li><label><input type="radio" name="english" value="good"><span>Good</span></label></li>
+          <li><label><input type="radio" name="english" value="very_good"><span>Very good</span></label></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         SECTION 3 – EMPLOYMENT PROFILE
+    ══════════════════════════════════════════ -->
+    <div class="card">
+      <div class="section-label">Section 3</div>
+      <div class="section-title">Employment Profile</div>
+      <hr class="section-divider">
+
+      <!-- Sector -->
+      <div class="question-block">
+        <p class="question-text"><span class="question-number">11</span>Current employment sector</p>
+        <ul class="options-list">
+          <li><label><input type="radio" name="sector" value="government" required><span>Government</span></label></li>
+          <li><label><input type="radio" name="sector" value="private"><span>Private sector</span></label></li>
+          <li><label><input type="radio" name="sector" value="semi_govt"><span>Semi-government</span></label></li>
+          <li><label><input type="radio" name="sector" value="ngo"><span>NGO / INGO</span></label></li>
+          <li><label><input type="radio" name="sector" value="self_employed"><span>Self-employed</span></label></li>
+          <li><label><input type="radio" name="sector" value="other"><span>Other</span></label></li>
+        </ul>
+      </div>
+
+      <!-- Job title -->
+      <div class="question-block">
+        <p class="question-text"><span class="question-number">12</span>Current job title</p>
+        <input type="text" name="job_title" class="text-input" placeholder="e.g. Software Engineer, Accountant, Teacher…" style="height:44px; resize:none;">
+      </div>
+
+      <!-- Employment type -->
+      <div class="question-block">
+        <p class="question-text"><span class="question-number">13</span>Employment type</p>
+        <ul class="options-list">
+          <li><label><input type="radio" name="emp_type" value="permanent" required><span>Permanent</span></label></li>
+          <li><label><input type="radio" name="emp_type" value="contract"><span>Contract</span></label></li>
+          <li><label><input type="radio" name="emp_type" value="temporary"><span>Temporary</span></label></li>
+          <li><label><input type="radio" name="emp_type" value="part_time"><span>Part-time</span></label></li>
+          <li><label><input type="radio" name="emp_type" value="freelance"><span>Freelance / self-employed</span></label></li>
+        </ul>
+      </div>
+
+      <!-- Income -->
+      <div class="question-block">
+        <p class="question-text"><span class="question-number">14</span>Monthly income range (LKR)</p>
+        <ul class="options-list">
+          <li><label><input type="radio" name="income" value="below_50k" required><span>Below 50,000</span></label></li>
+          <li><label><input type="radio" name="income" value="50k_99k"><span>50,000–99,999</span></label></li>
+          <li><label><input type="radio" name="income" value="100k_149k"><span>100,000–149,999</span></label></li>
+          <li><label><input type="radio" name="income" value="150k_199k"><span>150,000–199,999</span></label></li>
+          <li><label><input type="radio" name="income" value="200k_above"><span>200,000 and above</span></label></li>
+        </ul>
+      </div>
+
+      <!-- Time to first job -->
+      <div class="question-block">
+        <p class="question-text"><span class="question-number">15</span>How long did it take you to get your first job after graduation?</p>
+        <ul class="options-list">
+          <li><label><input type="radio" name="time_to_job" value="before_grad" required><span>Already employed before graduating</span></label></li>
+          <li><label><input type="radio" name="time_to_job" value="lt_3m"><span>Less than 3 months</span></label></li>
+          <li><label><input type="radio" name="time_to_job" value="3_6m"><span>3–6 months</span></label></li>
+          <li><label><input type="radio" name="time_to_job" value="7_12m"><span>7–12 months</span></label></li>
+          <li><label><input type="radio" name="time_to_job" value="gt_12m"><span>More than 12 months</span></label></li>
+        </ul>
+      </div>
+
+      <!-- Job relatedness -->
+      <div class="question-block">
+        <p class="question-text"><span class="question-number">16</span>Is your current job related to your field of study?</p>
+        <ul class="options-list">
+          <li><label><input type="radio" name="job_related" value="highly" required><span>Highly related</span></label></li>
+          <li><label><input type="radio" name="job_related" value="moderately"><span>Moderately related</span></label></li>
+          <li><label><input type="radio" name="job_related" value="slightly"><span>Slightly related</span></label></li>
+          <li><label><input type="radio" name="job_related" value="not_at_all"><span>Not related at all</span></label></li>
+        </ul>
+      </div>
+
+      <!-- Education required -->
+      <div class="question-block">
+        <p class="question-text"><span class="question-number">17</span>What level of education is actually required for your current job?</p>
+        <ul class="options-list">
+          <li><label><input type="radio" name="edu_required" value="below" required><span>Below my qualification level</span></label></li>
+          <li><label><input type="radio" name="edu_required" value="same"><span>Same as my qualification level</span></label></li>
+          <li><label><input type="radio" name="edu_required" value="above"><span>Above my qualification level</span></label></li>
+          <li><label><input type="radio" name="edu_required" value="not_sure"><span>Not sure</span></label></li>
+        </ul>
+      </div>
+
+      <!-- Hours per week -->
+      <div class="question-block">
+        <p class="question-text"><span class="question-number">18</span>How many hours do you usually work per week?</p>
+        <ul class="options-list">
+          <li><label><input type="radio" name="hours_pw" value="lt_20" required><span>Less than 20</span></label></li>
+          <li><label><input type="radio" name="hours_pw" value="20_29"><span>20–29</span></label></li>
+          <li><label><input type="radio" name="hours_pw" value="30_39"><span>30–39</span></label></li>
+          <li><label><input type="radio" name="hours_pw" value="40_49"><span>40–49</span></label></li>
+          <li><label><input type="radio" name="hours_pw" value="50_above"><span>50 or above</span></label></li>
+        </ul>
+      </div>
+
+      <!-- More hours -->
+      <div class="question-block">
+        <p class="question-text"><span class="question-number">19</span>Would you prefer to work more hours than you currently do?</p>
+        <ul class="options-list inline">
+          <li><label><input type="radio" name="more_hours" value="yes" required><span>Yes</span></label></li>
+          <li><label><input type="radio" name="more_hours" value="no"><span>No</span></label></li>
+          <li><label><input type="radio" name="more_hours" value="not_sure"><span>Not sure</span></label></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         SECTION 4 – SUBJECTIVE UNDEREMPLOYMENT
+    ══════════════════════════════════════════ -->
+    <div class="card">
+      <div class="section-label">Section 4</div>
+      <div class="section-title">Subjective Underemployment Scale</div>
+      <hr class="section-divider">
+      <div class="instruction">
+        Please indicate how much you agree with each of the following statements.<br>
+        <strong>1 = Strongly disagree &nbsp; 2 = Disagree &nbsp; 3 = Neutral &nbsp; 4 = Agree &nbsp; 5 = Strongly agree</strong>
+      </div>
+
+      <table class="likert-table">
+        <thead>
+          <tr>
+            <th>Statement</th>
+            <th>1<br><small>Strongly<br>Disagree</small></th>
+            <th>2<br><small>Disagree</small></th>
+            <th>3<br><small>Neutral</small></th>
+            <th>4<br><small>Agree</small></th>
+            <th>5<br><small>Strongly<br>Agree</small></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>UE1. My current job does not fully use my education.</td>
+            <td><input type="radio" name="ue1" value="1" required></td>
+            <td><input type="radio" name="ue1" value="2"></td>
+            <td><input type="radio" name="ue1" value="3"></td>
+            <td><input type="radio" name="ue1" value="4"></td>
+            <td><input type="radio" name="ue1" value="5"></td>
+          </tr>
+          <tr>
+            <td>UE2. My skills and abilities are underutilized in my present job.</td>
+            <td><input type="radio" name="ue2" value="1" required></td>
+            <td><input type="radio" name="ue2" value="2"></td>
+            <td><input type="radio" name="ue2" value="3"></td>
+            <td><input type="radio" name="ue2" value="4"></td>
+            <td><input type="radio" name="ue2" value="5"></td>
+          </tr>
+          <tr>
+            <td>UE3. I am qualified for a more demanding job than the one I currently hold.</td>
+            <td><input type="radio" name="ue3" value="1" required></td>
+            <td><input type="radio" name="ue3" value="2"></td>
+            <td><input type="radio" name="ue3" value="3"></td>
+            <td><input type="radio" name="ue3" value="4"></td>
+            <td><input type="radio" name="ue3" value="5"></td>
+          </tr>
+          <tr>
+            <td>UE4. My current job offers less career growth than my qualifications deserve.</td>
+            <td><input type="radio" name="ue4" value="1" required></td>
+            <td><input type="radio" name="ue4" value="2"></td>
+            <td><input type="radio" name="ue4" value="3"></td>
+            <td><input type="radio" name="ue4" value="4"></td>
+            <td><input type="radio" name="ue4" value="5"></td>
+          </tr>
+          <tr>
+            <td>UE5. The salary I receive is below what someone with my qualifications should reasonably earn.</td>
+            <td><input type="radio" name="ue5" value="1" required></td>
+            <td><input type="radio" name="ue5" value="2"></td>
+            <td><input type="radio" name="ue5" value="3"></td>
+            <td><input type="radio" name="ue5" value="4"></td>
+            <td><input type="radio" name="ue5" value="5"></td>
+          </tr>
+          <tr>
+            <td>UE6. The professional status of my current job is lower than I expected based on my education.</td>
+            <td><input type="radio" name="ue6" value="1" required></td>
+            <td><input type="radio" name="ue6" value="2"></td>
+            <td><input type="radio" name="ue6" value="3"></td>
+            <td><input type="radio" name="ue6" value="4"></td>
+            <td><input type="radio" name="ue6" value="5"></td>
+          </tr>
+          <tr>
+            <td>UE7. My current work does not match the type of work I trained for.</td>
+            <td><input type="radio" name="ue7" value="1" required></td>
+            <td><input type="radio" name="ue7" value="2"></td>
+            <td><input type="radio" name="ue7" value="3"></td>
+            <td><input type="radio" name="ue7" value="4"></td>
+            <td><input type="radio" name="ue7" value="5"></td>
+          </tr>
+          <tr>
+            <td>UE8. I feel that I have more knowledge than my current job requires.</td>
+            <td><input type="radio" name="ue8" value="1" required></td>
+            <td><input type="radio" name="ue8" value="2"></td>
+            <td><input type="radio" name="ue8" value="3"></td>
+            <td><input type="radio" name="ue8" value="4"></td>
+            <td><input type="radio" name="ue8" value="5"></td>
+          </tr>
+          <tr>
+            <td>UE9. My current job gives me fewer opportunities to develop professionally than I expected.</td>
+            <td><input type="radio" name="ue9" value="1" required></td>
+            <td><input type="radio" name="ue9" value="2"></td>
+            <td><input type="radio" name="ue9" value="3"></td>
+            <td><input type="radio" name="ue9" value="4"></td>
+            <td><input type="radio" name="ue9" value="5"></td>
+          </tr>
+          <tr>
+            <td>UE10. Overall, I feel underemployed in my current job.</td>
+            <td><input type="radio" name="ue10" value="1" required></td>
+            <td><input type="radio" name="ue10" value="2"></td>
+            <td><input type="radio" name="ue10" value="3"></td>
+            <td><input type="radio" name="ue10" value="4"></td>
+            <td><input type="radio" name="ue10" value="5"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         SECTION 5 – PSYCHOLOGICAL CONTRACT BREACH
+    ══════════════════════════════════════════ -->
+    <div class="card">
+      <div class="section-label">Section 5</div>
+      <div class="section-title">Psychological Contract Breach</div>
+      <hr class="section-divider">
+      <div class="instruction">
+        Please indicate how much you agree with each of the following statements.<br>
+        <strong>1 = Strongly disagree &nbsp; 2 = Disagree &nbsp; 3 = Neutral &nbsp; 4 = Agree &nbsp; 5 = Strongly agree</strong>
+      </div>
+
+      <table class="likert-table">
+        <thead>
+          <tr>
+            <th>Statement</th>
+            <th>1<br><small>Strongly<br>Disagree</small></th>
+            <th>2<br><small>Disagree</small></th>
+            <th>3<br><small>Neutral</small></th>
+            <th>4<br><small>Agree</small></th>
+            <th>5<br><small>Strongly<br>Agree</small></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>PCB1. My employer has not fulfilled some important promises made to me when I joined.</td>
+            <td><input type="radio" name="pcb1" value="1" required></td>
+            <td><input type="radio" name="pcb1" value="2"></td>
+            <td><input type="radio" name="pcb1" value="3"></td>
+            <td><input type="radio" name="pcb1" value="4"></td>
+            <td><input type="radio" name="pcb1" value="5"></td>
+          </tr>
+          <tr>
+            <td>PCB2. What I was led to expect from this job is different from what I actually receive.</td>
+            <td><input type="radio" name="pcb2" value="1" required></td>
+            <td><input type="radio" name="pcb2" value="2"></td>
+            <td><input type="radio" name="pcb2" value="3"></td>
+            <td><input type="radio" name="pcb2" value="4"></td>
+            <td><input type="radio" name="pcb2" value="5"></td>
+          </tr>
+          <tr>
+            <td>PCB3. I feel that my organization has fallen short of its obligations to me.</td>
+            <td><input type="radio" name="pcb3" value="1" required></td>
+            <td><input type="radio" name="pcb3" value="2"></td>
+            <td><input type="radio" name="pcb3" value="3"></td>
+            <td><input type="radio" name="pcb3" value="4"></td>
+            <td><input type="radio" name="pcb3" value="5"></td>
+          </tr>
+          <tr>
+            <td>PCB4. The career development opportunities I expected have not been provided.</td>
+            <td><input type="radio" name="pcb4" value="1" required></td>
+            <td><input type="radio" name="pcb4" value="2"></td>
+            <td><input type="radio" name="pcb4" value="3"></td>
+            <td><input type="radio" name="pcb4" value="4"></td>
+            <td><input type="radio" name="pcb4" value="5"></td>
+          </tr>
+          <tr>
+            <td>PCB5. I have not received the level of support I reasonably expected from my employer.</td>
+            <td><input type="radio" name="pcb5" value="1" required></td>
+            <td><input type="radio" name="pcb5" value="2"></td>
+            <td><input type="radio" name="pcb5" value="3"></td>
+            <td><input type="radio" name="pcb5" value="4"></td>
+            <td><input type="radio" name="pcb5" value="5"></td>
+          </tr>
+          <tr>
+            <td>PCB6. Overall, my employer has failed to deliver on key expectations I had about this job.</td>
+            <td><input type="radio" name="pcb6" value="1" required></td>
+            <td><input type="radio" name="pcb6" value="2"></td>
+            <td><input type="radio" name="pcb6" value="3"></td>
+            <td><input type="radio" name="pcb6" value="4"></td>
+            <td><input type="radio" name="pcb6" value="5"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         SECTION 6 – WORK ENGAGEMENT
+    ══════════════════════════════════════════ -->
+    <div class="card">
+      <div class="section-label">Section 6</div>
+      <div class="section-title">Work Engagement</div>
+      <hr class="section-divider">
+      <div class="instruction">
+        Please indicate how much you agree with each of the following statements.<br>
+        <strong>1 = Strongly disagree &nbsp; 2 = Disagree &nbsp; 3 = Neutral &nbsp; 4 = Agree &nbsp; 5 = Strongly agree</strong>
+      </div>
+
+      <table class="likert-table">
+        <thead>
+          <tr>
+            <th>Statement</th>
+            <th>1<br><small>Strongly<br>Disagree</small></th>
+            <th>2<br><small>Disagree</small></th>
+            <th>3<br><small>Neutral</small></th>
+            <th>4<br><small>Agree</small></th>
+            <th>5<br><small>Strongly<br>Agree</small></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>WE1. I feel energetic when I am working.</td>
+            <td><input type="radio" name="we1" value="1" required></td>
+            <td><input type="radio" name="we1" value="2"></td>
+            <td><input type="radio" name="we1" value="3"></td>
+            <td><input type="radio" name="we1" value="4"></td>
+            <td><input type="radio" name="we1" value="5"></td>
+          </tr>
+          <tr>
+            <td>WE2. I feel enthusiastic about my job.</td>
+            <td><input type="radio" name="we2" value="1" required></td>
+            <td><input type="radio" name="we2" value="2"></td>
+            <td><input type="radio" name="we2" value="3"></td>
+            <td><input type="radio" name="we2" value="4"></td>
+            <td><input type="radio" name="we2" value="5"></td>
+          </tr>
+          <tr>
+            <td>WE3. I feel proud of the work I do.</td>
+            <td><input type="radio" name="we3" value="1" required></td>
+            <td><input type="radio" name="we3" value="2"></td>
+            <td><input type="radio" name="we3" value="3"></td>
+            <td><input type="radio" name="we3" value="4"></td>
+            <td><input type="radio" name="we3" value="5"></td>
+          </tr>
+          <tr>
+            <td>WE4. Time passes quickly when I am working.</td>
+            <td><input type="radio" name="we4" value="1" required></td>
+            <td><input type="radio" name="we4" value="2"></td>
+            <td><input type="radio" name="we4" value="3"></td>
+            <td><input type="radio" name="we4" value="4"></td>
+            <td><input type="radio" name="we4" value="5"></td>
+          </tr>
+          <tr>
+            <td>WE5. I feel mentally involved in my work.</td>
+            <td><input type="radio" name="we5" value="1" required></td>
+            <td><input type="radio" name="we5" value="2"></td>
+            <td><input type="radio" name="we5" value="3"></td>
+            <td><input type="radio" name="we5" value="4"></td>
+            <td><input type="radio" name="we5" value="5"></td>
+          </tr>
+          <tr>
+            <td>WE6. I am willing to put extra effort into my work when needed.</td>
+            <td><input type="radio" name="we6" value="1" required></td>
+            <td><input type="radio" name="we6" value="2"></td>
+            <td><input type="radio" name="we6" value="3"></td>
+            <td><input type="radio" name="we6" value="4"></td>
+            <td><input type="radio" name="we6" value="5"></td>
+          </tr>
+          <tr>
+            <td>WE7. I feel motivated to do my job well every day.</td>
+            <td><input type="radio" name="we7" value="1" required></td>
+            <td><input type="radio" name="we7" value="2"></td>
+            <td><input type="radio" name="we7" value="3"></td>
+            <td><input type="radio" name="we7" value="4"></td>
+            <td><input type="radio" name="we7" value="5"></td>
+          </tr>
+          <tr>
+            <td>WE8. Even when work is difficult, I stay focused and involved.</td>
+            <td><input type="radio" name="we8" value="1" required></td>
+            <td><input type="radio" name="we8" value="2"></td>
+            <td><input type="radio" name="we8" value="3"></td>
+            <td><input type="radio" name="we8" value="4"></td>
+            <td><input type="radio" name="we8" value="5"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         SECTION 7 – MIGRATION INTENTION
+    ══════════════════════════════════════════ -->
+    <div class="card">
+      <div class="section-label">Section 7</div>
+      <div class="section-title">Migration Intention</div>
+      <hr class="section-divider">
+      <div class="instruction">
+        Please indicate how much you agree with each of the following statements.<br>
+        <strong>1 = Strongly disagree &nbsp; 2 = Disagree &nbsp; 3 = Neutral &nbsp; 4 = Agree &nbsp; 5 = Strongly agree</strong>
+      </div>
+
+      <table class="likert-table">
+        <thead>
+          <tr>
+            <th>Statement</th>
+            <th>1<br><small>Strongly<br>Disagree</small></th>
+            <th>2<br><small>Disagree</small></th>
+            <th>3<br><small>Neutral</small></th>
+            <th>4<br><small>Agree</small></th>
+            <th>5<br><small>Strongly<br>Agree</small></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MI1. I often think about leaving Sri Lanka for better career opportunities.</td>
+            <td><input type="radio" name="mi1" value="1" required></td>
+            <td><input type="radio" name="mi1" value="2"></td>
+            <td><input type="radio" name="mi1" value="3"></td>
+            <td><input type="radio" name="mi1" value="4"></td>
+            <td><input type="radio" name="mi1" value="5"></td>
+          </tr>
+          <tr>
+            <td>MI2. I intend to seek work opportunities abroad within the next two years.</td>
+            <td><input type="radio" name="mi2" value="1" required></td>
+            <td><input type="radio" name="mi2" value="2"></td>
+            <td><input type="radio" name="mi2" value="3"></td>
+            <td><input type="radio" name="mi2" value="4"></td>
+            <td><input type="radio" name="mi2" value="5"></td>
+          </tr>
+          <tr>
+            <td>MI3. If I had a realistic opportunity, I would migrate for employment.</td>
+            <td><input type="radio" name="mi3" value="1" required></td>
+            <td><input type="radio" name="mi3" value="2"></td>
+            <td><input type="radio" name="mi3" value="3"></td>
+            <td><input type="radio" name="mi3" value="4"></td>
+            <td><input type="radio" name="mi3" value="5"></td>
+          </tr>
+          <tr>
+            <td>MI4. My current career situation makes working abroad more attractive.</td>
+            <td><input type="radio" name="mi4" value="1" required></td>
+            <td><input type="radio" name="mi4" value="2"></td>
+            <td><input type="radio" name="mi4" value="3"></td>
+            <td><input type="radio" name="mi4" value="4"></td>
+            <td><input type="radio" name="mi4" value="5"></td>
+          </tr>
+          <tr>
+            <td>MI5. I actively look for information about jobs or migration pathways outside Sri Lanka.</td>
+            <td><input type="radio" name="mi5" value="1" required></td>
+            <td><input type="radio" name="mi5" value="2"></td>
+            <td><input type="radio" name="mi5" value="3"></td>
+            <td><input type="radio" name="mi5" value="4"></td>
+            <td><input type="radio" name="mi5" value="5"></td>
+          </tr>
+          <tr>
+            <td>MI6. I believe my long-term career prospects may be better outside Sri Lanka.</td>
+            <td><input type="radio" name="mi6" value="1" required></td>
+            <td><input type="radio" name="mi6" value="2"></td>
+            <td><input type="radio" name="mi6" value="3"></td>
+            <td><input type="radio" name="mi6" value="4"></td>
+            <td><input type="radio" name="mi6" value="5"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         SECTION 8 – TURNOVER INTENTION (Optional)
+    ══════════════════════════════════════════ -->
+    <div class="card">
+      <div class="section-label">Section 8</div>
+      <div class="section-title">Turnover Intention <span style="font-weight:400; font-size:0.85rem; color:#718096;">(Optional)</span></div>
+      <hr class="section-divider">
+      <div class="instruction">
+        Please indicate how much you agree with each of the following statements.<br>
+        <strong>1 = Strongly disagree &nbsp; 2 = Disagree &nbsp; 3 = Neutral &nbsp; 4 = Agree &nbsp; 5 = Strongly agree</strong>
+      </div>
+
+      <table class="likert-table">
+        <thead>
+          <tr>
+            <th>Statement</th>
+            <th>1<br><small>Strongly<br>Disagree</small></th>
+            <th>2<br><small>Disagree</small></th>
+            <th>3<br><small>Neutral</small></th>
+            <th>4<br><small>Agree</small></th>
+            <th>5<br><small>Strongly<br>Agree</small></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>TI1. I often think about leaving my current job.</td>
+            <td><input type="radio" name="ti1" value="1"></td>
+            <td><input type="radio" name="ti1" value="2"></td>
+            <td><input type="radio" name="ti1" value="3"></td>
+            <td><input type="radio" name="ti1" value="4"></td>
+            <td><input type="radio" name="ti1" value="5"></td>
+          </tr>
+          <tr>
+            <td>TI2. I am likely to search for another job soon.</td>
+            <td><input type="radio" name="ti2" value="1"></td>
+            <td><input type="radio" name="ti2" value="2"></td>
+            <td><input type="radio" name="ti2" value="3"></td>
+            <td><input type="radio" name="ti2" value="4"></td>
+            <td><input type="radio" name="ti2" value="5"></td>
+          </tr>
+          <tr>
+            <td>TI3. I do not see myself staying in this organization for long.</td>
+            <td><input type="radio" name="ti3" value="1"></td>
+            <td><input type="radio" name="ti3" value="2"></td>
+            <td><input type="radio" name="ti3" value="3"></td>
+            <td><input type="radio" name="ti3" value="4"></td>
+            <td><input type="radio" name="ti3" value="5"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         SECTION 9 – OPEN-ENDED QUESTIONS
+    ══════════════════════════════════════════ -->
+    <div class="card">
+      <div class="section-label">Section 9</div>
+      <div class="section-title">Open-ended Questions</div>
+      <hr class="section-divider">
+      <div class="instruction">Your responses below are entirely optional but are greatly valued.</div>
+
+      <div class="question-block">
+        <p class="question-text"><span class="question-number">20</span>In your view, what is the main reason graduates become underemployed in Sri Lanka?</p>
+        <textarea name="oe1" class="text-input" rows="3" placeholder="Share your thoughts…"></textarea>
+      </div>
+
+      <div class="question-block">
+        <p class="question-text"><span class="question-number">21</span>How has your current job matched or failed to match your qualifications?</p>
+        <textarea name="oe2" class="text-input" rows="3" placeholder="Share your thoughts…"></textarea>
+      </div>
+
+      <div class="question-block">
+        <p class="question-text"><span class="question-number">22</span>What would make you stay and build your career in Sri Lanka?</p>
+        <textarea name="oe3" class="text-input" rows="3" placeholder="Share your thoughts…"></textarea>
+      </div>
+
+      <div class="question-block">
+        <p class="question-text"><span class="question-number">23</span>Any additional comments on graduate employment in Sri Lanka?</p>
+        <textarea name="oe4" class="text-input" rows="3" placeholder="Share your thoughts…"></textarea>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         RESEARCH FRAMEWORK NOTE
+    ══════════════════════════════════════════ -->
+    <div class="card">
+      <div class="section-label">For Researcher Reference</div>
+      <div class="section-title">Construct Coding &amp; Analysis Plan</div>
+      <hr class="section-divider">
+
+      <table class="likert-table" style="font-size:0.88rem;">
+        <thead>
+          <tr>
+            <th style="text-align:left;">Construct</th>
+            <th style="text-align:left; border-radius:0;">Survey Items</th>
+            <th style="text-align:left; border-radius:0 6px 0 0;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Underemployment</td><td>Section 4 (UE1–UE10, Likert 1–5)</td><td>Core</td></tr>
+          <tr><td>Psychological Contract Breach</td><td>Section 5 (PCB1–PCB6, Likert 1–5)</td><td>Core</td></tr>
+          <tr><td>Work Engagement</td><td>Section 6 (WE1–WE8, Likert 1–5)</td><td>Core</td></tr>
+          <tr><td>Migration Intention</td><td>Section 7 (MI1–MI6, Likert 1–5)</td><td>Core</td></tr>
+          <tr><td>Turnover Intention</td><td>Section 8 (TI1–TI3, Likert 1–5)</td><td>Optional</td></tr>
+          <tr><td>Control Variables</td><td>Sections 2 &amp; 3</td><td>Background</td></tr>
+        </tbody>
+      </table>
+
+      <div class="note-box" style="margin-top:18px;">
+        <strong>Hypotheses:</strong><br>
+        H1: Underemployment → (+) Psychological contract breach<br>
+        H2: Psychological contract breach → (−) Work engagement<br>
+        H3: Psychological contract breach → (+) Migration intention<br>
+        H4: Underemployment → (−) Work engagement<br>
+        H5: Underemployment → (+) Migration intention<br>
+        H6: Psychological contract breach <em>mediates</em> the relationship between underemployment and migration intention
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="card" style="border-radius:0 0 12px 12px;">
+      <div class="submit-wrap">
+        <button type="submit" class="btn-submit">Submit Survey</button>
+      </div>
+    </div>
+
+  </form>
+
+  <div class="survey-footer">
+    This survey is part of an academic research study. All responses are anonymous and confidential.<br>
+    &copy; 2026 &nbsp;|&nbsp; Graduate Underemployment Research, Sri Lanka
+  </div>
+
+</div>
+
+<script>
+  // ── Progress bar ──
+  function updateProgress() {
+    const radios = document.querySelectorAll('input[type="radio"]');
+    const answered = new Set();
+    radios.forEach(r => { if (r.checked) answered.add(r.name); });
+    const total = new Set([...radios].map(r => r.name)).size;
+    const pct = total > 0 ? Math.round((answered.size / total) * 100) : 0;
+    document.getElementById('progressBar').style.width = pct + '%';
+  }
+  document.addEventListener('change', updateProgress);
+
+  // ── Highlight selected Likert row ──
+  document.querySelectorAll('.likert-table input[type="radio"]').forEach(radio => {
+    radio.addEventListener('change', function () {
+      const row = this.closest('tr');
+      document.querySelectorAll('.likert-table tbody tr').forEach(r => {
+        if (r === row) r.style.background = '#dbeafe';
+        // reset others only in same table
+      });
+    });
+  });
+
+  // ── Submit handler ──
+  document.getElementById('surveyForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    // Consent check
+    if (!document.getElementById('consent').checked) {
+      alert('Please provide your consent to participate before submitting.');
+      return;
+    }
+
+    // Screening check
+    const employed = document.querySelector('input[name="employed"]:checked');
+    const qualified = document.querySelector('input[name="qualified"]:checked');
+    if (!employed || !qualified) {
+      alert('Please answer all screening questions (Section 1).');
+      return;
+    }
+    if (employed.value === 'no' || qualified.value === 'no') {
+      alert('Thank you for your interest. This survey is intended for currently employed graduates only.');
+      return;
+    }
+
+    alert('Thank you for completing the survey!\n\nYour response has been recorded. Your participation is greatly appreciated.');
+  });
+</script>
+</body>
+</html>
